@@ -1,3 +1,18 @@
-// Place all the styles related to the Tasks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+// Checklist styles
+// CSS REQUIRED
+.state-icon {
+  left: -5px;
+}
+
+.list-group-item-primary {
+  background-color: rgb(66, 139, 202);
+  color: rgb(255, 255, 255);
+}
+
+// REMOVES UNWANTED MARGIN
+.well .list-group {
+  margin-bottom: 0;
+}
