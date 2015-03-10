@@ -1,0 +1,10 @@
+<%= form_for(@task) do |f| %>
+  <div>
+    <%= f.label :item %>
+    <%= f.text_field :item, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div>
+    <%= f.submit "Create task", class: 'btn-btn-primary' %>
+  </div>
+<% end %>
