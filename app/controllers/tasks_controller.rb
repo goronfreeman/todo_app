@@ -24,6 +24,10 @@ class TasksController < ApplicationController
   end
 
   def update
+    @task = Task.find(params[:id])
+    @task.update_attributes(complete: true)
+    redirect_to tasks_path
+    else
   end
 
   def destroy
@@ -32,6 +36,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:item)
+    params.require(:task).permit(:name)
   end
 end
