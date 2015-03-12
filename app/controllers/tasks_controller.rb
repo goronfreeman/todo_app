@@ -24,10 +24,17 @@ class TasksController < ApplicationController
   end
 
   def update
+  end
+
+  def set_complete
     @task = Task.find(params[:id])
-    @task.update_attributes(complete: true)
-    redirect_to tasks_path
+    if @task.update_attributes(complete: true)
+      # flash[:success] = 'Marked complete'
+      redirect_to tasks_path
     else
+      # flash[:error] = 'Could not mark as complete'
+      redirect_to(tasks_path)
+    end
   end
 
   def destroy

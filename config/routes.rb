@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :tasks do
+    member do
+      put :set_complete, as: :complete
+    end
   end
 end

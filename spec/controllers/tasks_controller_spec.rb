@@ -52,7 +52,7 @@ describe TasksController do
   end
 
   # Test update action
-  context '#update' do
+  context '#set_complete' do
     before(:each) do
       @task = @user.tasks.create(name: 'test')
       @task.save
@@ -60,13 +60,16 @@ describe TasksController do
 
     context 'when marked complete' do
       before(:each) do
-        put :update, id: @task.id
+        put :set_complete, id: @task.id
       end
-      it "should set complete to true" do
-        @task.reload
-        expect(@task.complete).eql?(true)
+      context 'when successful' do
+        it { should be_truthy }
+        # it { should set_flash[:success] }
+        it { should redirect_to tasks_path }
       end
-      it { should redirect_to tasks_path }
+      context 'when unsucessful' do
+        # it { should set_flash[:error] }
+      end
     end
   end
 end

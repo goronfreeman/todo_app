@@ -24,7 +24,7 @@
               <% @tasks.each do |task| %>
                   <li class="list-group-item">
 										<%= "#{task.name}"%>
-										<%= link_to 'Done', task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%>
+										<%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%>
 									</li>
               <% end %>
             </ul>
