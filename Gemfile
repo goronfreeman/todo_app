@@ -48,6 +48,8 @@ group :development, :test do
 
   # Use rspec for testing
   gem 'rspec-rails'
+
+  gem 'annotate'
 end
 
 group :development do
