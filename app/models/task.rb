@@ -2,6 +2,12 @@ class Task < ActiveRecord::Base
   belongs_to :user
 
   validates :name, presence: true
+  validates :name, length: {
+    minimum: 1,
+    maximum: 255,
+    too_short: 'must have at least %{count} characters',
+    too_long: 'must have at most %{count} characters'
+  }
 
   scope :complete, lambda {
     where(complete: true)

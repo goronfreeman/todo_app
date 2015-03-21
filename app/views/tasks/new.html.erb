@@ -1,4 +1,7 @@
 <%= form_for(@task) do |f| %>
+
+<%= render '/shared/form_errors', object_with_errors: @task %>
+
   <div>
     <%= f.label :name %>
     <%= f.text_field :name, autofocus: true, class: 'form-control' %>

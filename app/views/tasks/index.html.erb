@@ -6,8 +6,8 @@
         		<ul class="list-group checked-list-box">
               <% @tasks.incomplete.each do |task| %>
                   <li class="list-group-item">
-										<%= "#{task.name}"%>
-										<%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%>
+										<div><%= "#{task.name}"%></div>
+										<div align='right'><%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%></div>
 									</li>
               <% end %>
             </ul>
@@ -24,15 +24,15 @@
             <h3 class="text-center">Complete Tasks</h3>
             <div class="well" style="overflow: auto;">
         		<ul class="list-group checked-list-box">
-              <% @tasks.complete.each do |task| %>
+              <% @tasks.complete.order(:updated_at).reverse.each do |task| %>
                   <li class="list-group-item">
 										<strike><%= "#{task.name}"%></strike>
-										<%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%>
+										<!-- <%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%> -->
 									</li>
               <% end %>
             </ul>
-            <br />
-            <%= link_to 'Create task', new_task_path, class: 'btn btn-primary col-xs-12' %>
+            <!-- <br /> -->
+            <!-- <%= link_to 'Create task', new_task_path, class: 'btn btn-primary col-xs-12' %> -->
             </div>
         </div>
     </div>
