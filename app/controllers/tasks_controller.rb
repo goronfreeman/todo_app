@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    Task.find(params[:id])
   end
 
   def new
@@ -38,6 +39,16 @@ class TasksController < ApplicationController
   end
 
   def destroy
+  end
+
+  def complete
+    @tasks = Task.where(complete: true)
+    render json: @tasks
+  end
+
+  def incomplete
+    @tasks = Task.where(complete: false)
+    render json: @tasks
   end
 
   private

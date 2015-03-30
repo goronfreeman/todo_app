@@ -26,7 +26,7 @@
         		<ul class="list-group checked-list-box">
               <% @tasks.complete.order(:updated_at).reverse.each do |task| %>
                   <li class="list-group-item">
-										<strike><%= "#{task.name}"%></strike>
+										<strike><%= "#{task.name}" %></strike>
 										<!-- <%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%> -->
 									</li>
               <% end %>

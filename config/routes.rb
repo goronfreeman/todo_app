@@ -6,5 +6,9 @@ Rails.application.routes.draw do
     member do
       put :set_complete, as: :complete
     end
+    collection do
+      get :complete, defaults: { format: :'json' }
+      get :incomplete, defaults: { format: :'json' }
+    end
   end
 end
