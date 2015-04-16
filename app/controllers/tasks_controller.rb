@@ -1,6 +1,5 @@
 class TasksController < ApplicationController
   def index
-    @tasks = current_user.tasks
   end
 
   def show
@@ -38,17 +37,37 @@ class TasksController < ApplicationController
     end
   end
 
+  def ajax_set_complete
+    begin
+      task = current_user.tasks.find(params[:id])
+      task.update_attributes(complete: true)
+
+      render json: { success: true }, status: :success
+    rescue ActiveRecord::RecordNotFound
+      return head(:bad_request)
+    end
+  end
+
   def destroy
   end
 
   def complete
-    @tasks = Task.where(complete: true)
-    render json: @tasks
+    tasks = current_user.tasks.complete
+
+    render json: tasks
   end
 
   def incomplete
-    @tasks = Task.where(complete: false)
-    render json: @tasks
+    tasks = current_user.tasks.incomplete
+
+    tasks = tasks.each_with_object([]) do |task, arr|
+      task_attr = task.attributes
+      task_attr["complete_path"] = ajax_set_complete_task_path(task)
+
+      arr << task_attr
+    end
+
+    render json: tasks
   end
 
   private

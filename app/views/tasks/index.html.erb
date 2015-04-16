@@ -1,39 +1,51 @@
 <div class="container" style="margin-top:20px;">
-	<div class="row">
-        <div class="col-xs-6">
-            <h3 class="text-center">Tasks</h3>
-            <div class="well" style="overflow: auto;">
-        		<ul class="list-group checked-list-box">
-              <% @tasks.incomplete.each do |task| %>
-                  <li class="list-group-item">
-										<div><%= "#{task.name}"%></div>
-										<div align='right'><%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%></div>
-									</li>
-              <% end %>
-            </ul>
-            <br />
-            <%= link_to 'Create task', new_task_path, class: 'btn btn-primary col-xs-12' %>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <h3 class="text-center">Tasks</h3>
+      <div class="well" style="overflow: auto;">
+        <ul id='incomplete-item-list' class="list-group checked-list-box">
+        </ul>
+        <br />
+      </div>
     </div>
+  </div>
 </div>
 
-<div class="container" style="margin-top:20px;">
-	<div class="row">
-        <div class="col-xs-6">
-            <h3 class="text-center">Complete Tasks</h3>
-            <div class="well" style="overflow: auto;">
-        		<ul class="list-group checked-list-box">
-              <% @tasks.complete.order(:updated_at).reverse.each do |task| %>
-                  <li class="list-group-item">
-										<strike><%= "#{task.name}" %></strike>
-										<!-- <%= button_to 'Done', complete_task_path(task), method: :put, class: 'btn btn-primary', data: { confirm: 'Task Completed?'}%> -->
-									</li>
-              <% end %>
-            </ul>
-            <!-- <br /> -->
-            <!-- <%= link_to 'Create task', new_task_path, class: 'btn btn-primary col-xs-12' %> -->
-            </div>
-        </div>
-    </div>
-</div>
+<li id='item-li' class="list-group-item" style='visibility: hidden;'>
+  <div id='item-name'></div>
+  <div id='button-container' align='right'>
+    <input type='submit' id='item-complete-button' class='btn btn-primary' value='Done'></input>
+  </div>
+</li>
+
+<script>
+  $(document).ready(function() {
+    $.ajax({
+      url: 'tasks/incomplete'
+    })
+    .success(function(data) {
+      var incompleteListUl = $('#incomplete-item-list');
+
+      $(data).each(function(index, element) {
+        var itemLi = $('#item-li').clone().removeAttr('style');
+        var itemNameDiv = itemLi.children('#item-name');
+        var itemCompleteButton = itemLi.children('#button-container').children('#item-complete-button');
+
+        itemNameDiv.text(element.name);
+        itemCompleteButton.attr('data-complete-path', element.complete_path);
+
+        itemCompleteButton.click(function() {
+          $.ajax({
+            url: $(this).data('complete-path'),
+            type: "POST",
+            success: function(data, status) {
+              //FUNCTION
+            }
+          });
+        });
+
+        $(incompleteListUl).append(itemLi);
+      });
+    });
+  });
+</script>
